@@ -1,0 +1,11 @@
+--- scim-python-0.1.13rc1/configure.ac~	2008-07-11 06:16:43.000000000 +0200
++++ scim-python-0.1.13rc1/configure.ac	2011-07-25 00:46:59.600265342 +0200
+@@ -71,7 +71,7 @@
+ 
+ 
+ # define PYTHOPN_CFLAGS & PYTHON_LIBS
+-PYTHON_CONFIG=`type -p python$PYTHON_VERSION-config`
++PYTHON_CONFIG="/usr/bin/python$PYTHON_VERSION-config"
+ if test "$PYTHON_CONFIG" != ""; then
+ 	PYTHON_CFLAGS=`$PYTHON_CONFIG --includes`
+ 	PYTHON_LIBS=`$PYTHON_CONFIG --libs`
