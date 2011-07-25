@@ -1,3 +1,16 @@
+#
+# TODO:
+#	/usr/lib64/scim-1.0/scim-helper-launcher setup 8034d025-bdfc-4a10-86a4-82b9461b32b0
+#	Reading pinyin phrase lib failed
+#	Traceback (most recent call last):
+#	  File "/usr/share/scim-python/setupui/__init__.py", line 27, in <module>
+#	    import gtk 
+#	  File "/usr/lib64/python2.7/site-packages/gtk-2.0/gtk/__init__.py", line 30, in <module>
+#	  File "/usr/lib64/python2.7/site-packages/gobject/__init__.py", line 26, in <module>
+#	  File "/usr/lib64/python2.7/site-packages/glib/__init__.py", line 22, in <module>
+#	ImportError: /usr/lib64/libpyglib-2.0-python.so.0: undefined symbol: PyCObject_Type
+#	Segmentation fault
+#
 %define		_pre	rc1
 Summary:	Python language binding for Smart Common Input Method platform
 Name:		scim-python
