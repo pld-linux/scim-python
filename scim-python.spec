@@ -11,14 +11,16 @@
 #	ImportError: /usr/lib64/libpyglib-2.0-python.so.0: undefined symbol: PyCObject_Type
 #	Segmentation fault
 #
-%define		_pre	rc1
 Summary:	Python language binding for Smart Common Input Method platform
+Summary(pl.UTF-8):	Wiązania Pythona dla platformy wprowadzania znaków SCIM
 Name:		scim-python
 Version:	0.1.13
-Release:	0.%{_pre}.0.1
+%define	subver	rc1
+Release:	0.%{subver}.0.1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://scim-python.googlecode.com/files/%{name}-%{version}%{_pre}.tar.gz
+#Source0Download: http://code.google.com/p/scim-python/downloads/list
+Source0:	http://scim-python.googlecode.com/files/%{name}-%{version}%{subver}.tar.gz
 # Source0-md5:	d3b21df185b88a2100c2eee0007bc2cd
 Source1:	http://scim-python.googlecode.com/files/pinyin-database-0.1.10.5.tar.bz2
 # Source1-md5:	140a7dd821e8e74299bfb2089993838b
@@ -32,41 +34,60 @@ Source5:	http://scim-python.googlecode.com/files/xingma-cangjie5-0.1.10.1.tar.bz
 # Source5-md5:	873a0bbbbf24b584ec5015e7775549c1
 Patch0:		%{name}-bashizm.patch
 URL:		http://code.google.com/p/scim-python/
-BuildRequires:	gettext-devel
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake >= 1:1.9
+BuildRequires:	gettext-devel >= 0.16.1
+BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	libtool
-BuildRequires:	perl(XML::Parser)
-BuildRequires:	python-devel
-BuildRequires:	python-pygtk-devel
+BuildRequires:	perl-XML-Parser
+BuildRequires:	pkgconfig
+BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python-pyenchant
+BuildRequires:	python-pygtk-devel >= 2:2
 BuildRequires:	rpm-pythonprov
-BuildRequires:	scim-devel
-Requires:	python-modules
-Requires:	python-pygtk-gtk
-Requires:	scim
+BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	scim-devel >= 1.4
+Requires:	python-modules >= 1:2.5
+Requires:	python-pygtk-gtk >= 2:2
+Requires:	scim >= 1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Python wrapper for Smart Common Input Method platform.
 
+%description -l pl.UTF-8
+Pythonowe obudowanie dla platformy wprowadzania znaków SCIM (Smart
+Common Input Method).
+
 %package english
-Summary:	Python english IM engine
+Summary:	Python English IM engine
+Summary(pl.UTF-8):	Silnik IM w Pythonie dla języka angielskiego
 Group:		Libraries
-BuildRequires:	python-pyenchant
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-pyenchant
 
 %description english
-This package contains a python english IM engine.
+This package contains a Python English IM engine.
+
+%description english -l pl.UTF-8
+Ten pakiet zawiera silnik IM w Pythonie dla języka angielskiego.
 
 %package pinyin
-Summary:	Two python chinese pinyin IM engines
+Summary:	Two Python Chinese pinyin IM engines
+Summary(pl.UTF-8):	Dwa silniki IM pinyin w Pythonie dla języka chińskiego
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description pinyin
 This package contains two python chinese pinyin IM engines.
 
+%description pinyin -l pl.UTF-8
+Dwa silniki IM pinyin w Pythonie dla języka chińskiego.
+
 %package chinese
-Summary:	Python chinese IM engines
+Summary:	Python Chinese IM engines (metapackage)
+Summary(pl.UTF-8):	Silniki IM w Pythonie dla języka chińskiego (metapakiet)
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-pinyin = %{version}-%{release}
@@ -76,56 +97,84 @@ Requires:	%{name}-xingma-wubi = %{version}-%{release}
 Requires:	%{name}-xingma-zhengma = %{version}-%{release}
 
 %description chinese
-This package contains some python chinese IM engines.
+This metapackage gathers some Python Chinese IM engines.
+
+%description chinese
+Ten metapakiet gromadzi kilka silników IM w Pythonie dla języka
+chińskiego.
 
 %package xingma
 Summary:	Python XingMa IM engine
+Summary(pl.UTF-8):	Silnik IM XingMa w Pythonie
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description xingma
-This package contains a python XingMa IM engine.
+This package contains a Python XingMa IM engine.
+
+%description xingma -l pl.UTF-8
+Ten pakiet zawiera silnik IM XingMa w Pythonie.
 
 %package xingma-cangjie
 Summary:	CangJie table for Python XingMa IM engine
+Summary(pl.UTF-8):	Tablica CangJie dla silnika IM XingMa w Pythonie
 Group:		Libraries
 Requires:	%{name}-xingma = %{version}-%{release}
 
 %description xingma-cangjie
-This package contains a CangJie table for python XingMa IM engine.
+This package contains a CangJie table for Python XingMa IM engine.
+
+%description xingma-cangjie -l pl.UTF-8
+Ten pakiet zawiera tablicę CangJie dla silnika IM XingMa w Pythonie.
 
 %package xingma-erbi
 Summary:	ErBi table for Python XingMa IM engine
+Summary(pl.UTF-8):	Tablica ErBi dla silnika IM XingMa w Pythonie
 Group:		Libraries
 Requires:	%{name}-xingma = %{version}-%{release}
 
 %description xingma-erbi
-This package contains an ErBi table for python XingMa IM engine.
+This package contains an ErBi table for Python XingMa IM engine.
+
+%description xingma-erbi -l pl.UTF-8
+Ten pakiet zawiera tablicę ErBi dla silnika IM XingMa w Pythonie.
 
 %package xingma-wubi
 Summary:	WuBi table for Python XingMa IM engine
+Summary(pl.UTF-8):	Tablica WuBi dla silnika IM XingMa w Pythonie
 Group:		Libraries
 Requires:	%{name}-xingma = %{version}-%{release}
 
 %description xingma-wubi
-This package contains an ZhengMa table for python XingMa IM engine.
+This package contains an ZhengMa table for Python XingMa IM engine.
+
+%description xingma-wubi -l pl.UTF-8
+Ten pakiet zawiera tablicę WuBi dla silnika IM XingMa w Pythonie.
 
 %package xingma-zhengma
 Summary:	ZhengMa table for Python XingMa IM engine
+Summary(pl.UTF-8):	Tablica ZhengMa dla silnika IM XingMa w Pythonie
 Group:		Libraries
 Requires:	%{name}-xingma = %{version}-%{release}
 
 %description xingma-zhengma
-This package contains an ZhengMa table for python XingMa IM engine.
+This package contains an ZhengMa table for Python XingMa IM engine.
+
+%description xingma-zhengma -l pl.UTF-8
+Ten pakiet zawiera tablicę ZhengMa dla silnika IM XingMa w Pythonie.
 
 %prep
-%setup -q -n %{name}-%{version}%{_pre} -a2 -a3 -a4 -a5
+%setup -q -n %{name}-%{version}%{subver} -a2 -a3 -a4 -a5
 %patch0 -p1
 
 cp %{SOURCE1} python/engine/PinYin/
 
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--enable-english-writer \
 	--enable-pinyin
@@ -157,6 +206,7 @@ install wubi.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
 install zhengma.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables/
 install zhengma.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
 
+%py_postclean
 %find_lang %{name}
 
 %clean
@@ -168,18 +218,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/scim-0.1
 %dir %{py_sitedir}/scim-0.1/scim
 %attr(755,root,root) %{py_sitedir}/scim-0.1/scim/_scim.so
-%{py_sitedir}/scim-0.1/scim/*.py*
+%{py_sitedir}/scim-0.1/scim/*.py[co]
 %{py_sitedir}/scim.pth
-%attr(755,root,root) %{_libdir}/scim-1.0/*/IMEngine/python.so
 %attr(755,root,root) %{_libdir}/scim-1.0/*/Helper/python.so
+%attr(755,root,root) %{_libdir}/scim-1.0/*/IMEngine/python.so
 %attr(755,root,root) %{_libdir}/scim-1.0/*/SetupUI/python.so
 %dir %{_datadir}/scim-python
 %dir %{_datadir}/scim-python/engine
-%dir %{_datadir}/scim-python/setupui
-%dir %{_datadir}/scim-python/helper
 %{_datadir}/scim-python/engine/__init__.py*
-%{_datadir}/scim-python/setupui/__init__.py*
+%dir %{_datadir}/scim-python/helper
 %{_datadir}/scim-python/helper/__init__.py*
+%dir %{_datadir}/scim-python/setupui
+%{_datadir}/scim-python/setupui/__init__.py*
 %{_datadir}/scim/icons/scim-python.png
 
 %files english
