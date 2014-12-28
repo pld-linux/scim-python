@@ -36,7 +36,7 @@ Patch0:		%{name}-bashizm.patch
 URL:		http://code.google.com/p/scim-python/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.9
-BuildRequires:	gettext-devel >= 0.16.1
+BuildRequires:	gettext-tools >= 0.16.1
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	libtool
