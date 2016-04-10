@@ -30,8 +30,10 @@ Source3:	http://scim-python.googlecode.com/files/xingma-wubi86-0.1.10.1.tar.bz2
 # Source3-md5:	016146c4683e7b250a9738c08a9a7f1f
 Source4:	http://scim-python.googlecode.com/files/xingma-erbi-qingsong-0.1.10.1.tar.bz2
 # Source4-md5:	9fee870c92f174d0d3fce31513e20b96
-Source5:	http://scim-python.googlecode.com/files/xingma-cangjie5-0.1.10.1.tar.bz2
-# Source5-md5:	873a0bbbbf24b584ec5015e7775549c1
+Source5:	http://scim-python.googlecode.com/files/xingma-cangjie5-0.1.10.2.tar.bz2
+# Source5-md5:	90c758ec2299e3dca30b58f42dd0c5dd
+Source6:	http://scim-python.googlecode.com/files/xingma-compose-0.1.10.1.tar.bz2
+# Source6-md5:	2173d9fe28316652ea628c4cdb755785
 Patch0:		%{name}-bashizm.patch
 URL:		http://code.google.com/p/scim-python/
 BuildRequires:	autoconf >= 2.50
@@ -52,6 +54,8 @@ Requires:	python-modules >= 1:2.5
 Requires:	python-pygtk-gtk >= 2:2
 Requires:	scim >= 1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		scim_dir_ver	%(pkg-config --variable=scim_binary_version scim)
 
 %description
 Python wrapper for Smart Common Input Method platform.
@@ -92,6 +96,7 @@ Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-pinyin = %{version}-%{release}
 Requires:	%{name}-xingma-cangjie = %{version}-%{release}
+Requires:	%{name}-xingma-compose = %{version}-%{release}
 Requires:	%{name}-xingma-erbi = %{version}-%{release}
 Requires:	%{name}-xingma-wubi = %{version}-%{release}
 Requires:	%{name}-xingma-zhengma = %{version}-%{release}
@@ -126,6 +131,18 @@ This package contains a CangJie table for Python XingMa IM engine.
 
 %description xingma-cangjie -l pl.UTF-8
 Ten pakiet zawiera tablicę CangJie dla silnika IM XingMa w Pythonie.
+
+%package xingma-compose
+Summary:	Compose table for Python XingMa IM engine
+Summary(pl.UTF-8):	Tablica Compose dla silnika IM XingMa w Pythonie
+Group:		Libraries
+Requires:	%{name}-xingma = %{version}-%{release}
+
+%description xingma-compose
+This package contains a Compose table for Python XingMa IM engine.
+
+%description xingma-compose -l pl.UTF-8
+Ten pakiet zawiera tablicę Compose dla silnika IM XingMa w Pythonie.
 
 %package xingma-erbi
 Summary:	ErBi table for Python XingMa IM engine
@@ -164,7 +181,7 @@ This package contains an ZhengMa table for Python XingMa IM engine.
 Ten pakiet zawiera tablicę ZhengMa dla silnika IM XingMa w Pythonie.
 
 %prep
-%setup -q -n %{name}-%{version}%{subver} -a2 -a3 -a4 -a5
+%setup -q -n %{name}-%{version}%{subver} -a2 -a3 -a4 -a5 -a6
 %patch0 -p1
 
 cp %{SOURCE1} python/engine/PinYin/
@@ -182,6 +199,7 @@ cp %{SOURCE1} python/engine/PinYin/
 %{__make}
 
 %{__python} python/engine/XingMa/XMCreateDB.py -s cangjie5.txt.bz2 -p data/pinyin_table.txt
+%{__python} python/engine/XingMa/XMCreateDB.py -s compose.txt.bz2 -p data/pinyin_table.txt
 %{__python} python/engine/XingMa/XMCreateDB.py -s erbi-qs.txt.bz2 -p data/pinyin_table.txt
 %{__python} python/engine/XingMa/XMCreateDB.py -s wubi.txt.bz2 -p data/pinyin_table.txt
 %{__python} python/engine/XingMa/XMCreateDB.py -s zhengma.txt.bz2 -p data/pinyin_table.txt
@@ -194,17 +212,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/scim-0.1/scim/_scim.la
 
-install cangjie5.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables/
-install cangjie.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
+install cangjie5.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables
+install cangjie5.png $RPM_BUILD_ROOT%{_datadir}/scim/icons
 
-install erbi-qs.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables/
-install erbi-qs.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
+install compose.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables
+install compose.png $RPM_BUILD_ROOT%{_datadir}/scim/icons
 
-install wubi.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables/
-install wubi.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
+install erbi-qs.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables
+install erbi-qs.png $RPM_BUILD_ROOT%{_datadir}/scim/icons
 
-install zhengma.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables/
-install zhengma.png $RPM_BUILD_ROOT%{_datadir}/scim/icons/
+install wubi.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables
+install wubi.png $RPM_BUILD_ROOT%{_datadir}/scim/icons
+
+install zhengma.db $RPM_BUILD_ROOT%{_datadir}/scim-python/engine/XingMa/tables
+install zhengma.png $RPM_BUILD_ROOT%{_datadir}/scim/icons
 
 %py_postclean
 %find_lang %{name}
@@ -220,9 +241,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/scim-0.1/scim/_scim.so
 %{py_sitedir}/scim-0.1/scim/*.py[co]
 %{py_sitedir}/scim.pth
-%attr(755,root,root) %{_libdir}/scim-1.0/*/Helper/python.so
-%attr(755,root,root) %{_libdir}/scim-1.0/*/IMEngine/python.so
-%attr(755,root,root) %{_libdir}/scim-1.0/*/SetupUI/python.so
+%attr(755,root,root) %{_libdir}/scim-1.0/%{scim_dir_ver}/Helper/python.so
+%attr(755,root,root) %{_libdir}/scim-1.0/%{scim_dir_ver}/IMEngine/python.so
+%attr(755,root,root) %{_libdir}/scim-1.0/%{scim_dir_ver}/SetupUI/python.so
 %dir %{_datadir}/scim-python
 %dir %{_datadir}/scim-python/engine
 %{_datadir}/scim-python/engine/__init__.py*
@@ -265,7 +286,12 @@ rm -rf $RPM_BUILD_ROOT
 %files xingma-cangjie
 %defattr(644,root,root,755)
 %{_datadir}/scim-python/engine/XingMa/tables/cangjie5.db
-%{_datadir}/scim/icons/cangjie.png
+%{_datadir}/scim/icons/cangjie5.png
+
+%files xingma-compose
+%defattr(644,root,root,755)
+%{_datadir}/scim-python/engine/XingMa/tables/compose.db
+%{_datadir}/scim/icons/compose.png
 
 %files xingma-erbi
 %defattr(644,root,root,755)
