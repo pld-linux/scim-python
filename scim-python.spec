@@ -182,7 +182,7 @@ Ten pakiet zawiera tablicę ZhengMa dla silnika IM XingMa w Pythonie.
 
 %prep
 %setup -q -n %{name}-%{version}%{subver} -a2 -a3 -a4 -a5 -a6
-%patch0 -p1
+%patch -P0 -p1
 
 cp %{SOURCE1} python/engine/PinYin/
 
